@@ -32,7 +32,7 @@ module.exports = agent => {
         if (payload && payload.emitter) {
           agent.messenger.sendToApp(payload.emitter, payload.data || {});
         }
-        ch.ack(payload.msg);
+        payload && payload.nack ? ch.nack(payload.msg) : ch.ack(payload.msg);
       });
     }
   }
